@@ -1,5 +1,6 @@
 package org.codegym.bookapp.controllers;
 
+import org.codegym.bookapp.databases.DBConnect;
 import org.codegym.bookapp.services.AuthService;
 
 import javax.servlet.ServletConfig;

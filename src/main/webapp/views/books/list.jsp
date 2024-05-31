@@ -32,13 +32,17 @@
 <body>
 <h2>Book list</h2>
 <a href="/books/create">Add new book</a>
+<form action="/books/search" method="get">
+    <input type="text" name="keyword">
+    <button type="submit">Search</button>
+</form>
+Total: <%= books.size() %>
 <table>
     <tr>
         <td>#</td>
         <td>Name</td>
         <td>Desc</td>
         <td>Price</td>
-        <td>Author</td>
         <td></td>
     </tr>
     <c:set var="i" value="1"/>
@@ -48,8 +52,10 @@
             <td><c:out value="${book.name}"/> </td>
             <td><c:out value="${book.desc}"/> </td>
             <td><c:out value="${book.price}"/> </td>
-            <td><c:out value="${book.author}"/> </td>
-            <td><a href="${pageContext.request.contextPath}/books/delete?id=<c:out value="${book.id}"/>">Delete</a></td>
+            <td>
+                <a href="${pageContext.request.contextPath}/books/delete?id=<c:out value="${book.id}"/>">Delete</a>
+                <a href="${pageContext.request.contextPath}/books/update?id=<c:out value="${book.id}"/>">Update</a>
+            </td>
         </tr>
         <c:set var="i" value="${i + 1}"/>
     </c:forEach>

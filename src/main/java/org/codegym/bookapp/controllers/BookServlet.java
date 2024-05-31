@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet(name = "BookServlet", urlPatterns = {"/books/*"})
 public class BookServlet extends HttpServlet {
@@ -24,13 +25,39 @@ public class BookServlet extends HttpServlet {
         String url = req.getPathInfo();
         switch (url) {
             case "/list":
-                this.bookService.renderPageListBook(req, resp);
+                try {
+                    this.bookService.renderPageListBook(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case "/create":
-                this.bookService.renderPageCreateBook(req, resp);
+                try {
+                    this.bookService.renderPageCreateBook(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case "/delete":
-                this.bookService.deleteBook(req, resp);
+                try {
+                    this.bookService.deleteBook(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case "/update":
+                try {
+                    this.bookService.renderPageUpdateBook(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+            case "/search":
+                try {
+                    this.bookService.searchBook(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
 
         }
@@ -41,8 +68,20 @@ public class BookServlet extends HttpServlet {
         String url = req.getPathInfo();
         switch (url) {
             case "/create":
-                this.bookService.createBook(req, resp);
+                try {
+                    this.bookService.createBook(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
+            case "/update":
+                try {
+                    this.bookService.updateBook(req, resp);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                break;
+
         }
     }
 }
